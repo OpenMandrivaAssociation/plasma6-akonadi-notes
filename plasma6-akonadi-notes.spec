@@ -1,5 +1,5 @@
 Name:		plasma6-akonadi-notes
-Version:	24.01.85
+Version:	24.01.90
 Release:	1
 Summary:	Akonadi Notes Integration
 License:	GPLv2+ and LGPLv2+
@@ -36,7 +36,7 @@ Requires: %{libname} = %{EVRD}
 %description
 Akonadi Notes Integration.
 
-%files -f akonadinotes5.lang
+%files -f akonadinotes6.lang
 
 #--------------------------------------------------------------------
 
@@ -81,4 +81,4 @@ based on %{name}.
 
 %install
 %ninja_install -C build
-%find_lang akonadinotes5
+%find_lang akonadinotes6
