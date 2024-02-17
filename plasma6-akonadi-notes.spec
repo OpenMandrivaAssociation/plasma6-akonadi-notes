@@ -1,6 +1,9 @@
+%define git 20240217
+%define gitbranch release/24.02
+%define gitbranchd %(echo %{gitbranch} |sed -e "s,/,-,g")
 Name:		plasma6-akonadi-notes
-Version:	24.01.95
-Release:	1
+Version:	24.01.96
+Release:	%{?git:0.%{git}.}1
 Summary:	Akonadi Notes Integration
 License:	GPLv2+ and LGPLv2+
 Group:		Graphical desktop/KDE
@@ -11,7 +14,11 @@ URL:		https://www.kde.org/
 %else
 %define ftpdir stable
 %endif
+%if 0%{?git:1}
+Source0:	https://invent.kde.org/pim/akonadi-notes/-/archive/%{gitbranch}/akonadi-notes-%{gitbranchd}.tar.bz2#/akonadi-notes-20240217.tar.bz2
+%else
 Source0:	http://download.kde.org/%{ftpdir}/release-service/%{version}/src/akonadi-notes-%{version}.tar.xz
+%endif
 BuildRequires:	cmake(Qt6)
 BuildRequires:	cmake(Qt6Core)
 BuildRequires:	cmake(Qt6Gui)
@@ -71,7 +78,7 @@ based on %{name}.
 #--------------------------------------------------------------------
 
 %prep
-%autosetup -p1 -n akonadi-notes-%{version}
+%autosetup -p1 -n akonadi-notes-%{?git:%{gitbranchd}}%{!?git:%{version}}
 %cmake \
 	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON \
 	-G Ninja
